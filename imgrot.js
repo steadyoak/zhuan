@@ -1,3 +1,5 @@
+let originalFileName = '';
+
 function exportCanvasAsPNG(canvas, image, type) {
     image.src = canvas.toDataURL("image/png")
 }
@@ -8,9 +10,15 @@ img1 = pick(this, ".img1")
 
 c1 = pick(this, ".c1")
 
-p.addEventListener("change", function(){
+p.addEventListener("change", function(event){
+    const file = event.target.files[0];
+    if (file) {
+        originalFileName = file.name.split('.').slice(0, -1).join('.'); // Remove extension from the original name
+    }
+
     const fr = new FileReader();
     fr.readAsDataURL(p.files[0]);
+
     fr.onload = function () {
         img.src = fr.result;
         img.onload = function (){
@@ -60,3 +68,16 @@ p.addEventListener("change", function(){
         }
     }
 })
+
+function downloadImage() {
+    // Get the canvas where the image is drawn
+    const dataUrl = c1.toDataURL('image/png'); // Convert canvas to data URL in PNG format
+
+    // Create a temporary link element
+    const link = document.createElement('a');
+    link.href = dataUrl;
+    link.download = `${originalFileName}_rotated.png`; // Use original name with a suffix
+
+    // Trigger the download
+    link.click();
+}
