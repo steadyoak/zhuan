@@ -7,8 +7,16 @@ function exportCanvasAsPNG(canvas, image, type) {
 p = pick(this, ".imginp")
 img = pick(this, ".img")
 img1 = pick(this, ".img1")
-
+b1 = pick(this, ".downloadbtn")
 c1 = pick(this, ".c1")
+
+img.addEventListener("click", function(event){
+    p.click();
+})
+
+img1.addEventListener("click", function(event){
+    b1.click();
+})
 
 p.addEventListener("change", function(event){
     const file = event.target.files[0];
