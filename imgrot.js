@@ -69,6 +69,10 @@ p.addEventListener("change", function(event){
     }
 })
 
+function triggerFileInput() {
+    p.click();
+}
+
 function downloadImage() {
     // Get the canvas where the image is drawn
     const dataUrl = c1.toDataURL('image/png'); // Convert canvas to data URL in PNG format
