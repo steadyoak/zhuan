@@ -82,14 +82,27 @@ function triggerFileInput() {
 }
 
 function downloadImage() {
-    // Get the canvas where the image is drawn
-    const dataUrl = c1.toDataURL('image/png'); // Convert canvas to data URL in PNG format
+    c1.toBlob((blob) => {
+        // Create a temporary link element
+        const link = document.createElement('a');
+        link.href = URL.createObjectURL(blob); // Create a URL for the blob
+        link.download = `${originalFileName}_rotated.png`; // Use original name with a suffix
+    
+        // Trigger the download
+        link.click();
+    
+        // Release the blob URL after download
+        URL.revokeObjectURL(link.href);
+    }, 'image/png'); // Specify the image format as PNG
+    
+    // // Get the canvas where the image is drawn
+    // const dataUrl = c1.toDataURL('image/png'); // Convert canvas to data URL in PNG format
 
-    // Create a temporary link element
-    const link = document.createElement('a');
-    link.href = dataUrl;
-    link.download = `${originalFileName}_rotated.png`; // Use original name with a suffix
+    // // Create a temporary link element
+    // const link = document.createElement('a');
+    // link.href = dataUrl;
+    // link.download = `${originalFileName}_rotated.png`; // Use original name with a suffix
 
-    // Trigger the download
-    link.click();
+    // // Trigger the download
+    // link.click();
 }
